@@ -10,29 +10,10 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: userpass
     ports:
-      - "3306:3306"  # map MySQL port to host
+      - "3306:3306"  # Map container port to host
     volumes:
-      - mysql-data:/var/lib/mysql  # persist DB data
-    networks:
-      - app-network
-
-  inventory-service:
-    build: .
-    container_name: inventory-service
-    depends_on:
-      - mysql
-    environment:
-      DB_URL: jdbc:mysql://host.docker.internal:3306/inventory_db
-      DB_USERNAME: root
-      DB_PASSWORD: root
-    ports:
-      - "8081:8081"
-    networks:
-      - app-network
+      - mysql-data:/var/lib/mysql  # Persist data
+    restart: unless-stopped
 
 volumes:
   mysql-data:
-
-networks:
-  app-network:
-    driver: bridge
