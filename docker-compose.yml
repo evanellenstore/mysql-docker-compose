@@ -7,8 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: inventory_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpass
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     ports:
       - "3306:3306"  # Map container port to host
     volumes:
