@@ -1,0 +1,2 @@
+ chmod +x apply-branch-protection.sh
+./apply-branch-protection.sh
