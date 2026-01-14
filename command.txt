@@ -1,2 +1,78 @@
+
+//=========================================
  chmod +x apply-branch-protection.sh
 ./apply-branch-protection.sh
+
+
+//=======================
+
+ docker tag config-server-service:latest evanellenstore/config-server-service:latest
+
+
+ docker login
+
+
+docker push evanellenstore/config-server-service:latest
+
+
+${CONFIG_URL:configserver:http://host.docker.internal:8850}
+
+
+docker build -f Dockerfile -t inventory-service . 
+
+docker tag inventory-service:latest evanellenstore/inventory-service:latest
+
+docker push evanellenstore/inventory-service:latest  
+
+//=====================================
+
+kubectl applt -f  .
+
+kubectl apply -n store -f .    
+
+kubectl get all -n default | grep cloud-gateway
+
+kubectl delete deployment cloud-gateway-service -n default
+
+kubectl delete service cloud-gateway-service -n default
+
+kubectl delete configmap cloud-gateway-config -n default
+kubectl delete ingress cloud-gateway-ingress -n default
+
+kubectl delete all,configmap,ingress -l app=cloud-gateway-service -n default
+
+kubectl get all -n default | grep cloud-gateway
+
+//==========================================
+
+kubectl port-forward svc/mysql 3307:3306 -n store
+
+Connection Name	k8s-mysql-store
+Hostname	127.0.0.1
+Port	3307
+Username	root
+Password	root
+Default Schema	store_db
+
+
+jdbc:mysql://localhost:3307/store_db
+
+
+
+jdbc:mysql://mysql.store.svc.cluster.local:3306/store_db
+
+
+//=============================
+
+
+kubectl get pods -n store
+
+kubectl logs -f -n store inventory-service-6d9b6775b6-v2msr 
+
+kubectl port-forward svc/mysql 3307:3306 -n store
+
+kubectl port-forward svc/cloud-gateway-service 9090:9090 -n store
+
+
+kubectl port-forward svc/inventory-service 2011:2011 -n store
+
