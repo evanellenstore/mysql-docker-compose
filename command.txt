@@ -76,3 +76,34 @@ kubectl port-forward svc/cloud-gateway-service 9090:9090 -n store
 
 kubectl port-forward svc/inventory-service 2011:2011 -n store
 
+
+
+
+
+//=================flow. 
+
+
+inventory-service
+    GET  /inventory/{productId}
+    PUT  /inventory/{productId}/reserve
+    PUT  /inventory/{productId}/release
+    PUT  /inventory/{productId}/adjust
+
+
+ product-service
+    POST   /products
+    GET    /products
+    GET    /products/{id}
+    PUT    /products/{id}
+    DELETE /products/{id}   
+
+
+
+purchase-service
+
+
+billing-service
+
+
+reporting-service
+notification-service
